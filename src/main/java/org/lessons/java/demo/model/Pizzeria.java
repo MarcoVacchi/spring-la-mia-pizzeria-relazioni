@@ -1,12 +1,14 @@
 package org.lessons.java.demo.model;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
@@ -37,6 +39,9 @@ public class Pizzeria {
     @NotBlank
     private String symbol;
 
+    @OneToMany(mappedBy = "pizze")
+    private List<Sale> sales;
+
     public Integer getId() {
         return this.id;
     }
@@ -47,6 +52,14 @@ public class Pizzeria {
 
     public String getName() {
         return this.name;
+    }
+
+    public List<Sale> getSales() {
+        return this.sales;
+    }
+
+    public void setSales(List<Sale> sales) {
+        this.sales = sales;
     }
 
     public void setName(String name) {

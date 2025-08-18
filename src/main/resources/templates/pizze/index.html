@@ -31,6 +31,7 @@
                         <th scope="col">Descrizione</th>
                         <th scope="col">Image</th>
                         <th scope="col">Price</th>
+                        <th scope="col">Sales</th>
                         <th scope="col">Detail</th>
                         <th scope="col">Edit</th>
                         <th scope="col">Delete</th>
@@ -44,6 +45,7 @@
                         <td>[[*{description}]]</td>
                         <td><img th:src="*{pick}" alt="Pizza image" style="max-width: 150px; max-height: 200px;"></td>
                         <td>[[*{price}]] [[*{symbol}]]</td>
+                        <td><a class="btn btn-outline-primary btn-sm" th:href="@{/pizze/{id}/sale(id=*{id})}">Sales</td>
                         <td><a class="btn btn-primary btn-sm" th:href="@{/pizze/{id}(id=*{id})}">Detail</td>
                         <!--Dettaglio singola pizza-->
                         <td><a class="btn btn-success btn-sm" th:href="@{/pizze/edit/{id}(id=*{id})}">Edit</td>

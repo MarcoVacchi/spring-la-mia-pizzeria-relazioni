@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizzeria</title>
+</head>
+
+<body>
+
+    <th:block th:replace="~{fragment :: bootstrap}"></th:block>
+    <th:block th:replace="~{fragment :: navBar}"></th:block>
+
+    <div class="col-8 container mx-auto">
+        <div class="card mb-5" style="max-width: 500px">
+            <h1 th:if="${sale.pizze != null}" th:text="${sale.pizze.name}">Nome pizza</h1>
+            <img th:src=" *{sale.pizze.pick}" alt="Pizza image" style="width: 100%;">
+            <div class="card-body">
+                <h3>Ingredienti:</h3>
+                <h4 class="card-text">[[*{sale.pizze.description}]]</h4>
+                <a href="#" class="btn btn-primary">[[*{sale.pizze.price}]] [[*{sale.pizze.symbol}]]</a>
+            </div>
+            <h1 th:unless="${sale.pizze != null}">Nessuna pizza selezionata</h1>
+        </div>
+
+        <form th:action="@{/sales/create}" th:object="${sale}" method="post" class="mb-5">
+
+            <div class="mb-3">
+                <label class="form-label" for="startSale">Inizio promozione:</label>
+                <input class="form-control" type="date" id="startSale" th:field="*{startSale}"
+                    th:errorClass="is-invalid">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('startSale')}">
+                    <ul>
+                        <li th:each="error : ${#fields.errors('startSale')}" th:text="${error}"></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="endSale">Fine promozione:</label>
+                <input class="form-control" type="date" id="endSale" th:field="*{endSale}" th:errorClass="is-invalid">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('endSale')}">
+                    <ul>
+                        <li th:each="error : ${#fields.errors('endSale')}" th:text="${error}"></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="notes">Note:</label>
+                <textarea class="form-control" id="notes" th:field="*{notes}" th:errorClass="is-invalid"></textarea>
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('notes')}">
+                    <ul>
+                        <li th:each="error : ${#fields.errors('notes')}" th:text="${error}"></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Se vuoi permettere di selezionare/modificare la pizzeria associata -->
+            <!-- serve una select con tutte le pizzerie disponibili -->
+
+            <button type="submit" class="btn btn-primary">Crea Promozione</button>
+
+        </form>
+    </div>
+
+</body>
+
+</html>

@@ -3,6 +3,7 @@ package org.lessons.java.demo.controller;
 import java.util.List;
 
 import org.lessons.java.demo.model.Pizzeria;
+import org.lessons.java.demo.model.Sale;
 import org.lessons.java.demo.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -92,6 +93,14 @@ public class PizzaController {
     public String delete(@PathVariable Integer id) {
         repository.deleteById(id);
         return "redirect:/pizze";
+    }
+
+    @GetMapping("/{id}/sale")
+    public String sale(@PathVariable("id") Integer id, Model model) {
+        Sale sale = new Sale();
+        sale.setPizze(repository.findById(id).get());
+        model.addAttribute("sale", sale);
+        return "sales/create";
     }
 
 }
