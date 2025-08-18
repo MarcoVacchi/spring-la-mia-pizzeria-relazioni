@@ -43,6 +43,7 @@ public class PizzaController {
         Pizzeria pizza = repository.findById(id).get();
 
         model.addAttribute("pizza", pizza);
+        model.addAttribute("sales", pizza.getSales());
         return "pizze/show";
     }
 
@@ -104,13 +105,3 @@ public class PizzaController {
     }
 
 }
-
-// Completiamo le pagine di gestione delle nostre pizze!
-
-// Abbiamo la pagina con la lista di tutte le pizze, quella con i dettagli della
-// singola pizza, quella per crearla...cosa manca?
-
-// Dobbiamo realizzare :
-// pagina di modifica di una pizza
-// cancellazione di una pizza, cliccando un pulsante presente nella grafica di
-// ogni singolo prodotto mostrato (nella lista in index)

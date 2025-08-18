@@ -7,9 +7,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 
@@ -25,16 +25,22 @@ public class Sale {
     @JoinColumn(name = "pizzeria_id", nullable = false)
     private Pizzeria pizze;
 
+    @NotBlank(message = "This field cannot be empty")
+    private String title;
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     @NotNull(message = "The start sale cannot be null")
-    @PastOrPresent(message = "The start sale cannot be set in future")
     private LocalDate startSale;
 
     @NotNull(message = "The end sale cannot be null")
-    @PastOrPresent(message = "The end sale cannot be set in future")
     private LocalDate endSale;
-
-    @Lob
-    private String notes;
 
     public Integer getId() {
         return this.id;
@@ -68,11 +74,4 @@ public class Sale {
         this.endSale = endSale;
     }
 
-    public String getNotes() {
-        return this.notes;
-    }
-
-    public void setNotes(String notes) {
-        this.notes = notes;
-    }
 }

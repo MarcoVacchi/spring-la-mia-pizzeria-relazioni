@@ -22,6 +22,82 @@
                 <h4 class="card-text">[[*{description}]]</h4>
                 <a href="#" class="btn btn-primary">[[*{price}]] [[*{symbol}]]</a>
             </div>
+
+
+            <section class="row mb-3">
+                <div class="col-12">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Title</th>
+                                <th scope="col">Start sale</th>
+                                <th scope="col">End Sale</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr th:each="sale : ${sales}">
+                                <td>[[${sale.id}]]</td>
+                                <td>[[${sale.title}]]</td>
+                                <td>[[${sale.startSale}]]</td>
+                                <td>[[${sale.endSale}]]</td>
+                            </tr>
+                            <!-- <tr th:each="pizza: ${pizze}" th:object="${pizza}">
+                            <td scope="row">[[*{name}]]</td>
+                            <td>[[*{description}]]</td>
+                            <td><img th:src="*{pick}" alt="Pizza image" style="max-width: 150px; max-height: 200px;">
+                            </td>
+                            <td>[[*{price}]] [[*{symbol}]]</td>
+                            <td><a class="btn btn-outline-primary btn-sm" th:href="@{/pizze/{id}/sale(id=*{id})}">Sales
+                            </td>
+                            <td><a class="btn btn-primary btn-sm" th:href="@{/pizze/{id}(id=*{id})}">Detail</td>
+                            <!--Dettaglio singola pizza-->
+                            <!-- <td><a class="btn btn-success btn-sm" th:href="@{/pizze/edit/{id}(id=*{id})}">Edit</td> -->
+
+                            <!--NO MODALE-->
+                            <!-- <td>
+                            <form method="post" th:action="@{/pizze/delete/{id}(id=*{id})}">
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </td> -->
+                            <!--CON MODALE-->
+                            <!-- <td>
+                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                    th:data-bs-target="'#delete-modal-' + *{id}">
+                                    Delete
+                                </button>
+
+                                <div class="modal fade" tabindex="-1" th:id="'delete-modal-' + *{id}">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Delete [[*{name}]]</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Sei sicuro di voler eliminare la pizza?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Chiudi</button>
+                                                <form method="post" th:action="@{/pizze/delete/{id}(id=*{id})}">
+                                                    <button type="submit" class="btn btn-danger btn-sm">Conferma
+                                                        elimina</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </td> -->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
         </div>
     </div>
 </body>
