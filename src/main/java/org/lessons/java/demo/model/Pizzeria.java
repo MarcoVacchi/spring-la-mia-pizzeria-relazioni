@@ -3,6 +3,7 @@ package org.lessons.java.demo.model;
 import java.math.BigDecimal;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -39,7 +40,7 @@ public class Pizzeria {
     @NotBlank
     private String symbol;
 
-    @OneToMany(mappedBy = "pizze")
+    @OneToMany(mappedBy = "pizze", cascade = { CascadeType.REMOVE })
     private List<Sale> sales;
 
     public Integer getId() {
