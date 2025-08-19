@@ -8,7 +8,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMin;
@@ -40,8 +43,24 @@ public class Pizzeria {
     @NotBlank
     private String symbol;
 
+    // SEZIONE DELLE RELAZIONI;
+
     @OneToMany(mappedBy = "pizze", cascade = { CascadeType.REMOVE })
     private List<Sale> sales;
+
+    @ManyToMany
+    @JoinTable(name = "ingredient_pizzeria", joinColumns = @JoinColumn(name = "pizzeria_id"), inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
+    private List<Ingredient> ingredients;
+
+    public List<Ingredient> getIngredients() {
+        return this.ingredients;
+    }
+
+    // FINE SEZIONE DELLE RELAZIONI;
+
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
 
     public Integer getId() {
         return this.id;

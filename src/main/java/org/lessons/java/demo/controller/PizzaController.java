@@ -25,13 +25,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class PizzaController {
 
     @Autowired
-    private PizzaRepository repository;
+    private PizzaRepository pizzeRepository;
 
     // index
     @GetMapping
     public String index(Model model) {
 
-        List<Pizzeria> pizzeria = repository.findAll(); // new ArrayList<>(); --> per testare in caso sia vuoto;
+        List<Pizzeria> pizzeria = pizzeRepository.findAll(); // new ArrayList<>(); --> per testare in caso sia vuoto;
         model.addAttribute("pizze", pizzeria);
         return "pizze/index";
     }
@@ -40,7 +40,7 @@ public class PizzaController {
     @GetMapping("/{id}")
     public String show(@PathVariable("id") Integer id, Model model) {
 
-        Pizzeria pizza = repository.findById(id).get();
+        Pizzeria pizza = pizzeRepository.findById(id).get();
 
         model.addAttribute("pizza", pizza);
         model.addAttribute("sales", pizza.getSales());
@@ -50,7 +50,7 @@ public class PizzaController {
     // ricerca
     @GetMapping("/searchByName")
     public String searchByName(@RequestParam(name = "name") String name, Model model) {
-        List<Pizzeria> pizzeria = repository.findByNameContainingIgnoreCase(name);
+        List<Pizzeria> pizzeria = pizzeRepository.findByNameContainingIgnoreCase(name);
         model.addAttribute("pizze", pizzeria);
         model.addAttribute("name", name);
         return "pizze/index";
@@ -70,13 +70,13 @@ public class PizzaController {
         if (bindingResult.hasErrors()) {
             return "pizze/create";
         }
-        repository.save(formPizzeria);
+        pizzeRepository.save(formPizzeria);
         return "redirect:/pizze";
     }
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
-        model.addAttribute("pizze", repository.findById(id).get());
+        model.addAttribute("pizze", pizzeRepository.findById(id).get());
         return "pizze/edit";
     }
 
@@ -86,20 +86,20 @@ public class PizzaController {
         if (bindingResult.hasErrors()) {
             return "pizze/edit";
         }
-        repository.save(formPizzeria);
+        pizzeRepository.save(formPizzeria);
         return "redirect:/pizze";
     }
 
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable Integer id) {
-        repository.deleteById(id);
+        pizzeRepository.deleteById(id);
         return "redirect:/pizze";
     }
 
     @GetMapping("/{id}/sale")
     public String sale(@PathVariable("id") Integer id, Model model) {
         Sale sale = new Sale();
-        sale.setPizze(repository.findById(id).get());
+        sale.setPizze(pizzeRepository.findById(id).get());
         model.addAttribute("sale", sale);
         model.addAttribute("edit", false);
         return "sales/create-or-edit";
