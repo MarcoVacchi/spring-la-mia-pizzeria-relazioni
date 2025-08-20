@@ -1,6 +1,7 @@
 package org.lessons.java.demo.controller;
 
 import org.lessons.java.demo.model.Ingredient;
+import org.lessons.java.demo.model.Pizzeria;
 import org.lessons.java.demo.repository.IngredientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -62,6 +63,16 @@ public class IngredientController {
             return "ingredients/create-or-edit";
         }
         ingredientRepository.save(formIngredient);
+        return "redirect:/ingredients";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id) {
+        Ingredient ingredientToRemove = ingredientRepository.findById(id).get();
+        for (Pizzeria ingredients : ingredientToRemove.getPizze()) {
+            ingredients.getIngredients().remove(ingredientToRemove);
+        }
+        ingredientRepository.delete(ingredientToRemove);
         return "redirect:/ingredients";
     }
 

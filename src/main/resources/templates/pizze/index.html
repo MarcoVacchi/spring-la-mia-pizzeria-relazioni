@@ -28,7 +28,7 @@
                 <thead>
                     <tr>
                         <th scope="col">Name</th>
-                        <th scope="col">Descrizione</th>
+                        <th scope="col">Ingredienti</th>
                         <th scope="col">Image</th>
                         <th scope="col">Price</th>
                         <th scope="col">Sales</th>
@@ -42,7 +42,11 @@
                 <tbody>
                     <tr th:each="pizza: ${pizze}" th:object="${pizza}">
                         <td scope="row">[[*{name}]]</td>
-                        <td>[[*{description}]]</td>
+                        <td>
+                            <ul>
+                                <li th:each="ingredient : ${pizza.ingredients}" th:text="${ingredient.name}"></li>
+                            </ul>
+                        </td>
                         <td><img th:src="*{pick}" alt="Pizza image" style="max-width: 150px; max-height: 200px;"></td>
                         <td>[[*{price}]] [[*{symbol}]]</td>
                         <td><a class="btn btn-outline-primary btn-sm" th:href="@{/pizze/{id}/sale(id=*{id})}">Sales</td>
